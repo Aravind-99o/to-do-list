@@ -4,45 +4,24 @@ st.title('TO DO-LIST')
 
 st.write('A to-do list program is a simple and efficient application that helps you manage your tasks and stay organized.')
 
-def main():
-    st.title("To-Do List")
-
-    # Initialize the session state for tasks list if not already initialized
-    if "tasks" not in st.session_state:
-        st.session_state["tasks"] = []
-
-    # Option to add a new task
-    st.header("Add New Task")
-    new_task = st.text_input("Enter a new task:")
+# Initialize session state 
+if 'tasks' not in st.session_state:
+    st.session_state.tasks = [] 
+# Input for new task 
+    new_task = st.text_input("Add a new task:") 
+# Add button 
     if st.button("Add Task"):
         if new_task:
-            st.session_state["tasks"].append({"task": new_task, "done": False})
-            st.success("Task added!")
-        else:
-            st.warning("Please enter a task before adding.")
-
-    # Display all tasks
-    st.header("Tasks List")
-    if st.session_state["tasks"]:
-        for index, task in enumerate(st.session_state["tasks"]):
-            status = "Done" if task["done"] else "Not Done"
-            st.write(f"{index + 1}. {task['task']} - {status}")
-
-            # Add a button to mark the task as done
-            if not task["done"]:
-                if st.button(f"Mark as Done {index + 1}", key=index):
-                    st.session_state["tasks"][index]["done"] = True
-                    st.success(f"Task '{task['task']}' marked as done!")
-                    st.experimental_rerun()  # Rerun to refresh the task status
-    else:
-        st.info("No tasks added yet.")
-
-    # Option to exit (not required in Streamlit, but added for user convenience)
-    st.header("Exit")
-    if st.button("Exit"):
-        st.info("Thank you for using the To-Do List app!")
-        st.stop()
-
-
-if __name__ == "__main__":
-    main()
+            st.session_state.tasks.append({'task': new_task, 'done': False}) 
+            st.experimental_rerun() 
+# Display tasks
+            st.subheader("Tasks to Do")
+            for i, task in enumerate(st.session_state.tasks):
+                if not task['done']:
+                    col1, col2 = st.columns([4, 1]) col1.write(task['task'])
+                    if col2.button("Done", key=f"done_{i}"):
+                        task['done'] = True st.experimental_rerun()
+                        st.subheader("Completed Tasks") 
+                        for task in st.session_state.tasks:
+                            if task['done']:
+                                st.write(task['task'])
