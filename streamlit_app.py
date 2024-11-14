@@ -21,7 +21,8 @@ if 'tasks' not in st.session_state:
                     col1, col2 = st.columns([4, 1])
                     col1.write(task['task'])
                     if col2.button("Done", key=f"done_{i}"):
-                        task['done'] = True st.experimental_rerun()
+                        task['done'] = True 
+                        st.experimental_rerun()
                         st.subheader("Completed Tasks") 
                         for task in st.session_state.tasks:
                             if task['done']:
