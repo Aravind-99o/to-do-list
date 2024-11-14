@@ -1,7 +1,6 @@
 # 📦 TO DO-LIST 
-```
 
-Description of the ap ...
+A to-do list program is a simple and efficient application that helps you manage your tasks and stay organized.
 
 ## Demo App
 
